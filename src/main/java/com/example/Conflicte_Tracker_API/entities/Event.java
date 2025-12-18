@@ -23,5 +23,45 @@ public class Event {
     private Conflict conflict;
 
     // Getters, setters, constructors
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(LocalDate eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Conflict getConflict() {
+        return conflict;
+    }
+
+    public void setConflict(Conflict conflict) {
+        this.conflict = conflict;
+    }
 }
 

@@ -2,6 +2,7 @@ package com.example.Conflicte_Tracker_API.service;
 
 import com.example.Conflicte_Tracker_API.dto.ConflictDto;
 import com.example.Conflicte_Tracker_API.entities.Conflict;
+import com.example.Conflicte_Tracker_API.entities.ConflictStatus;
 import com.example.Conflicte_Tracker_API.entities.Country;
 import com.example.Conflicte_Tracker_API.repository.ConflictRepository;
 import com.example.Conflicte_Tracker_API.repository.CountryRepository;
@@ -16,34 +17,61 @@ import java.util.Set;
 @Service
 public class ConflictService {
 
-    private  ConflictRepository repo;
-    private  CountryRepository countryRepo;
 
+    private final ConflictRepository conflictRepo;
+    private final CountryRepository countryRepo;
 
+    public ConflictService(ConflictRepository conflictRepo, CountryRepository countryRepo) {
+        this.conflictRepo = conflictRepo;
+        this.countryRepo = countryRepo;
+    }
+
+    // CREATE
     public Conflict create(ConflictDto dto) {
-        Set<Country> countries = new HashSet<>(countryRepo.findAllById(dto.countryIds()));
         Conflict c = new Conflict();
         c.setName(dto.name());
-        c.setStatus(dto.status());
         c.setStartDate(dto.startDate());
+        c.setStatus(dto.status());
         c.setDescription(dto.description());
-        c.setCountries(countries);
-        return repo.save(c);
+        c.setCountries(new HashSet<>(countryRepo.findAllById(dto.countryIds())));
+        return conflictRepo.save(c);
     }
 
+    // READ ALL
     public List<Conflict> findAll() {
-        return repo.findAll();
+        return conflictRepo.findAll();
     }
 
-    public Optional<Conflict> findById(Long id) {
-        return repo.findById(id);
+    // READ BY ID
+    public Conflict findById(Long id) {
+        return conflictRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Conflict not found"));
     }
 
-    public void deleted(Long id){
-        if(repo.existsById(id)){
-            throw new RuntimeException("Conflict not found: "+ id);
+    // UPDATE
+    public Conflict update(Long id, ConflictDto dto) {
+        Conflict c = findById(id);
+        c.setName(dto.name());
+        c.setStartDate(dto.startDate());
+        c.setStatus(dto.status());
+        c.setDescription(dto.description());
+        c.setCountries(new HashSet<>(countryRepo.findAllById(dto.countryIds())));
+        return conflictRepo.save(c);
+    }
+
+    // DELETE
+    public void delete(Long id) {
+        if (!conflictRepo.existsById(id)) {
+            throw new RuntimeException("Conflict not found");
         }
-        repo.deleteById(id);
+        conflictRepo.deleteById(id);
     }
+
+    // FILTER BY STATUS
+    public List<Conflict> findByStatus(ConflictStatus status) {
+        return conflictRepo.findByStatus(status);
+    }
+
+
 }
 

@@ -10,13 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/admin/conflict")
 public class ConflictController {
 
     private  ConflictService conflictService;
     private  ConflictMapper conflictMapper;
 
-    @PostMapping ("/{conflictDto}")
+    public ConflictController(ConflictService conflictService, ConflictMapper conflictMapper) {
+        this.conflictService = conflictService;
+        this.conflictMapper = conflictMapper;
+    }
+
+
+    @PostMapping
     public ConflictDto create (@RequestBody ConflictDto conflictDto){
         return conflictMapper.toDTO(conflictService.create(conflictDto));
     }
@@ -27,8 +34,9 @@ public class ConflictController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@RequestBody Long id){
+    public void delete(@PathVariable Long id){
         conflictService.deleted(id);
     }
+
 
 }

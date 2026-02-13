@@ -2,7 +2,7 @@ package com.example.Conflicte_Tracker_API.dto;
 
 import java.time.LocalDate;
 
-public record Event(
+public record EventDto(
        Long id,
        LocalDate eventDate,
        String location,

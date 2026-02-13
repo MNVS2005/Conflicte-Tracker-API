@@ -12,6 +12,10 @@ public class Faction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
     private String name;
 
     @ManyToOne
@@ -51,4 +55,5 @@ public class Faction {
     public void setSupportedCountries(Set<Country> supportedCountries) {
         this.supportedCountries = supportedCountries;
     }
+
 }

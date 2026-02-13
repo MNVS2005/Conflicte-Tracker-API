@@ -11,6 +11,10 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public Long getId() {
+        return id;
+    }
+
     private LocalDate eventDate;
 
     private String location;
@@ -22,6 +26,36 @@ public class Event {
     @JoinColumn(name = "conflict_id")
     private Conflict conflict;
 
-    // Getters, setters, constructors
+    public LocalDate getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(LocalDate eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Conflict getConflict() {
+        return conflict;
+    }
+
+    public void setConflict(Conflict conflict) {
+        this.conflict = conflict;
+    }
 }
 

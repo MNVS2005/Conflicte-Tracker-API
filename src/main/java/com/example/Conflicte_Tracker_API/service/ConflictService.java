@@ -18,7 +18,10 @@ public class ConflictService {
 
     private  ConflictRepository repo;
     private  CountryRepository countryRepo;
-
+    public ConflictService(ConflictRepository repo, CountryRepository countryRepo) {
+        this.repo = repo;
+        this.countryRepo = countryRepo;
+    }
 
     public Conflict create(ConflictDto dto) {
         Set<Country> countries = new HashSet<>(countryRepo.findAllById(dto.countryIds()));

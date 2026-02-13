@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Llistat de Conflictes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .description {
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Llistat de Conflictes</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Data Inici</th>
+        <th>Estat</th>
+        <th>Descripció</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="conflict : ${conflicts}">
+        <td th:text="${conflict.name}"></td>
+        <td th:text="${conflict.startDate}"></td>
+        <td th:text="${conflict.status}"></td>
+        <td class="description"
+            th:text="${#strings.abbreviate(conflict.description, 100)}">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

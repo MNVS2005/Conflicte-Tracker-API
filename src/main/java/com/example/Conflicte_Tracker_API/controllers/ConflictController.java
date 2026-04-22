@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/admin/conflict")
+@RequestMapping("/api/admin/conflict")
 public class ConflictController {
 
     private  ConflictService conflictService;
@@ -31,6 +30,11 @@ public class ConflictController {
     @GetMapping
     public List<ConflictDto> findByAll(){
         return conflictService.findAll().stream().map(conflictMapper::toDTO).toList();
+    }
+
+    @GetMapping("/{id}")
+    public ConflictDto findById(@PathVariable Long id){
+        return conflictMapper.toDTO(conflictService.findById(id).get());
     }
 
     @DeleteMapping("/{id}")

@@ -44,8 +44,8 @@ public class ConflictService {
     }
 
     public void deleted(Long id){
-        if(repo.existsById(id)){
-            throw new RuntimeException("Conflict not found: "+ id);
+        if(!repo.existsById(id)){
+            throw new RuntimeException("Conflict not found: " + id);
         }
         repo.deleteById(id);
     }
